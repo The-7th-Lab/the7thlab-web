@@ -1,21 +1,20 @@
 'use client';
 
-import { icons } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 interface IconProps {
-  name: keyof typeof icons;
+  icon: IconDefinition;
   size?: number;
   color?: string;
   className?: string;
 }
 
-const Icon = ({ name, size = 17, color, className }: IconProps) => {
-  const LucideIcon = icons[name];
-
+const Icon = ({ icon, size = 17, color, className }: IconProps) => {
   return (
-    <LucideIcon
-      size={size}
-      color={color}
+    <FontAwesomeIcon
+      icon={icon}
+      style={{ fontSize: size, color }}
       className={className}
     />
   );

@@ -25,7 +25,7 @@
   --color-White: #FFFFFF;
   --color-Vermilion: #F04939;
   --color-mainBackground: #ededed;
-  --color-foreBackground: #191919;
+  --color-foreBackground: #000000;
 }
 
 /* Dark mode media query - automatically detects user's system preference */

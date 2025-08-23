@@ -6,43 +6,209 @@ This is a component for the Menu used in main website navigation.
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+    faChevronDown, 
+    faArrowUpRightFromSquare, 
+    faMagnifyingGlass 
+} from '../config/fontawesome';
+
+interface DropdownItem {
+    title: string;
+    description: string;
+    href: string;
+    external?: boolean;
+}
+
+interface DropdownMenu {
+    title: string;
+    items: DropdownItem[];
+}
+
+const dropdownMenus: DropdownMenu[] = [
+    {
+        title: "Projects",
+        items: [
+            {
+                title: "Web Development",
+                description: "Modern web applications and sites",
+                href: "/projects/web"
+            },
+            {
+                title: "Mobile Apps",
+                description: "iOS and Android applications",
+                href: "/projects/mobile"
+            },
+            {
+                title: "AI & ML",
+                description: "Machine learning and AI solutions",
+                href: "/projects/ai"
+            },
+            {
+                title: "View All Projects",
+                description: "See our complete portfolio",
+                href: "/projects",
+                external: true
+            }
+        ]
+    },
+    {
+        title: "Blog",
+        items: [
+            {
+                title: "Latest Posts",
+                description: "Recent articles and insights",
+                href: "/blog"
+            },
+            {
+                title: "Tech Insights",
+                description: "Technology trends and analysis",
+                href: "/blog/tech"
+            },
+            {
+                title: "Case Studies",
+                description: "Real-world project stories",
+                href: "/blog/case-studies"
+            },
+            {
+                title: "Newsletter",
+                description: "Stay updated with our insights",
+                href: "/newsletter"
+            }
+        ]
+    },
+    {
+        title: "Resources",
+        items: [
+            {
+                title: "Getting Started",
+                description: "Quick start guide for developers",
+                href: "/resources/getting-started"
+            },
+            {
+                title: "API Reference",
+                description: "Complete API documentation",
+                href: "/resources/api"
+            },
+            {
+                title: "Tutorials",
+                description: "Step-by-step guides",
+                href: "/resources/tutorials"
+            },
+            {
+                title: "Examples",
+                description: "Code examples and snippets",
+                href: "/resources/examples"
+            }
+        ]
+    }
+];
 
 export const MainMenu = () => {
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+
+
+
+
     return (
-        <div className="flex items-center justify-between w-full h-[64px]">
+        <div className="flex items-center justify-between w-full h-[64px] px-6 backdrop-blur-md">
             <div className="flex items-center gap-8">
                 {/* Logo */}
-                <Link 
-                    href="/"
-                >
+                <Link href="/" className="flex-shrink-0">
                     <Image
-                        src="/The7thLab-Logo.svg"
+                        src="/The7thLab-Logo.png"
                         alt="The 7th Lab Logo"
                         width={130}
                         height={130}
                         priority
+                        className="h-8 w-auto"
                     />
                 </Link>
 
-                {/* Navigation Links */}
-                <div className="flex items-center gap-4">
-                    <Link href="/">Home</Link>
-                    <Link href="/about">About</Link>
-                    <Link href="/services">Services</Link>
-                    <Link href="/contact">Contact</Link>
-                </div>
+                {/* Navigation Links with Dropdowns */}
+                <nav className="flex items-center gap-1">
+                    <Link 
+                        href="/about" 
+                        className="px-3 py-2 text-sm font-medium text-[#A1A1A1] hover:text-White hover:bg-mainBackground dark:hover:bg-[#333333] rounded-[3px] transition-colors duration-200"
+                    >
+                        About
+                    </Link>
+                    {dropdownMenus.map((menu) => (
+                        <div 
+                            key={menu.title} 
+                            className="relative" 
+                            ref={(el) => { dropdownRefs.current[menu.title] = el; }}
+                            onMouseEnter={() => setActiveDropdown(menu.title)}
+                            onMouseLeave={() => setActiveDropdown(null)}
+                        >
+                            <button
+                                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#A1A1A1] hover:text-White hover:bg-mainBackground dark:hover:bg-[#333333] rounded-[3px] transition-colors duration-200"
+                            >
+                                {menu.title}
+                                <FontAwesomeIcon 
+                                    icon={faChevronDown}
+                                    className={`transition-transform duration-200 ${
+                                        activeDropdown === menu.title ? 'rotate-180' : ''
+                                    }`}
+                                />
+                            </button>
+
+                            {/* Dropdown Menu */}
+                            {activeDropdown === menu.title && (
+                                <div className="absolute top-full left-0 mt-1 w-80 rounded-[3px] shadow-lg border-[0.25px] border-[#333333] bg-mainBackground dark:bg-foreBackground py-2 z-50 animate-in slide-in-from-top-2 duration-200">
+                                    <div className="py-2">
+                                        {menu.items.map((item, index) => (
+                                            <Link
+                                                key={index}
+                                                href={item.href}
+                                                className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-150 group"
+
+                                            >
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-sm font-medium group-hover:text-gray-700 dark:group-hover:text-gray-700">
+                                                            {item.title}
+                                                        </span>
+                                                        {item.external && (
+                                                            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-gray-400 text-sm" />
+                                                        )}
+                                                    </div>
+                                                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                                                        {item.description}
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </nav>
             </div>
 
-            {/* Search and  CTA Button*/}
+            {/* Search and CTA Button */}
             <div className="flex items-center gap-4">
-                <div className="hidden md:flex items-center gap-2 text-sm rounded-[2  px] ring-[#333333] ring-1 px-3 py-2">
-                    <Search size={16} />
-                    <input type="text" placeholder="Search" className="bg-transparent outline-none" />
+                <div className="hidden md:flex items-center gap-2 text-sm rounded-md ring-1 ring-gray-300 px-3 py-2 hover:ring-gray-400 transition-all duration-200 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className="text-gray-400 text-sm" />
+                    <input 
+                        type="text" 
+                        placeholder="Search..." 
+                        className="bg-transparent outline-none text-gray-700 placeholder-gray-500 w-48"
+                    />
                 </div>
+                
+                <Link
+                    href="/contact"
+                    className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded-md transition-colors duration-200"
+                >
+                    Get Started
+                </Link>
             </div>
         </div>
-    )
-}
+    );
+};
