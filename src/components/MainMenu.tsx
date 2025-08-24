@@ -110,13 +110,10 @@ export const MainMenu = () => {
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-
-
-
-
     return (
-        <div className="flex items-center justify-between w-full h-[64px] px-6 backdrop-blur-md">
-            <div className="flex items-center gap-8">
+        <div className="flex items-center justify-center h-[64px] backdrop-blur-md border-[#333333] border-b-[0.5px]">
+            <div className="flex items-center justify-between w-full max-w-[1400px] px-6">
+                <div className="flex items-center gap-8">
                 {/* Logo */}
                 <Link href="/" className="flex-shrink-0">
                     <Image
@@ -151,6 +148,7 @@ export const MainMenu = () => {
                                 {menu.title}
                                 <FontAwesomeIcon 
                                     icon={faChevronDown}
+                                    size="xs"
                                     className={`transition-transform duration-200 ${
                                         activeDropdown === menu.title ? 'rotate-180' : ''
                                     }`}
@@ -159,13 +157,13 @@ export const MainMenu = () => {
 
                             {/* Dropdown Menu */}
                             {activeDropdown === menu.title && (
-                                <div className="absolute top-full left-0 mt-1 w-80 rounded-[3px] shadow-lg border-[0.25px] border-[#333333] bg-mainBackground dark:bg-foreBackground py-2 z-50 animate-in slide-in-from-top-2 duration-200">
+                                <div className="absolute top-full left-0 mt-1 w-80 rounded-[3px] shadow-lg border-[0.25px] border-[#333333] bg-mainBackground dark:bg-foreBackground py-2 z-50 animate-in slide-in-from-top-2 duration-300">
                                     <div className="py-2">
                                         {menu.items.map((item, index) => (
                                             <Link
                                                 key={index}
                                                 href={item.href}
-                                                className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-150 group"
+                                                className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-300 group"
 
                                             >
                                                 <div className="flex-1 min-w-0">
@@ -193,22 +191,24 @@ export const MainMenu = () => {
 
             {/* Search and CTA Button */}
             <div className="flex items-center gap-4">
-                <div className="hidden md:flex items-center gap-2 text-sm rounded-md ring-1 ring-gray-300 px-3 py-2 hover:ring-gray-400 transition-all duration-200 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} className="text-gray-400 text-sm" />
+                <div className="hidden md:flex items-center gap-2 text-sm rounded-[2px] ring-1 ring-[#a1a1a1] px-3 py-2 hover:ring-Vermilion 
+                transition-all duration-200 focus-within:ring-2 focus-within:ring-Vermilion">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className="text-[#a1a1a1] text-sm" />
                     <input 
                         type="text" 
                         placeholder="Search..." 
-                        className="bg-transparent outline-none text-gray-700 placeholder-gray-500 w-48"
+                        className="bg-transparent outline-none text-White placeholder-[#a1a1a1] w-48"
                     />
                 </div>
                 
                 <Link
-                    href="/contact"
-                    className="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 rounded-md transition-colors duration-200"
+                    href="/learn"
+                    className="hidden md:inline-flex items-center px-4 py-2 text-sm text-[#a1a1a1] hover:text-White bg-transparent border-[0.5px] border-[#a1a1a1] hover:bg-[#333333] rounded-[3px] transition-colors duration-200"
                 >
-                    Get Started
+                    Learn
                 </Link>
             </div>
         </div>
+    </div>
     );
 };
