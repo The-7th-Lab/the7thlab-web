@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../resources/globals.css";
 import "../config/fontawesome";
 import { MainMenu } from "../components/MainMenu";
+import { FooterMenu } from "../components/FooterMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,12 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans text-Night dark:text-White bg-mainBackground dark:bg-darkBackground`}>
-        <div className="w-full flex justify-center border-[#333333] border-b-[0.5px]">
-          <div className="w-full max-w-[1400px] px-4">
-            <MainMenu />
-          </div>
-        </div>
+        <MainMenu />
         {children}
+        <FooterMenu />
       </body>
     </html>
   )
