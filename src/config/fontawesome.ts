@@ -6,7 +6,8 @@ export {
   faMagnifyingGlass, 
   faChevronDown, 
   faArrowUpRightFromSquare,
-  faChevronRight 
+  faChevronRight,
+  faCookie
 } from '@fortawesome/free-solid-svg-icons';
 
 // Brand Icons
