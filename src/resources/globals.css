@@ -3,8 +3,8 @@
 
 /* Define base CSS variables for light mode (default) */
 :root {
-  --background: #ffffff;    /* Background color */
-  --foreground: #171717;    /* Text color */
+  --background: #FAFAFA;    /* Background color */
+  --foreground: [Night];    /* Text color */
 }
 
 /* Tailwind v4 theme configuration - maps CSS variables to Tailwind design tokens */
@@ -22,17 +22,21 @@
   --color-EerieBlack: #191919;
   --color-Timberwolf: #CED0CE;
   --color-Platinum: #E6E8E6;
-  --color-White: #FFFFFF;
+  --color-White: #FFFFFF;              
   --color-Vermilion: #F04939;
-  --color-mainBackground: #ededed;
-  --color-foreBackground: #000000;
+  --color-Zinc: #FAFAFA;
+  --color-Black: #000000;
   --color-Gray: #A1A1A1;
+  
+  /* Border color system */
+  --color-border-light: #e7e3e4;
+  --color-border-dark: #2a2627;
 }
 
 /* Dark mode media query - automatically detects user's system preference */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: var(--color-foreBackground);
+    --background: var(--color-Black);
     --foreground: var(--color-White);
   }
 }

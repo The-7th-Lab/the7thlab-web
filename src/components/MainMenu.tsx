@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
     faChevronDown, 
     faArrowUpRightFromSquare, 
@@ -108,10 +109,83 @@ const dropdownMenus: DropdownMenu[] = [
 
 export const MainMenu = () => {
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+    const [hoveredItemBounds, setHoveredItemBounds] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
+    const [dropdownBounds, setDropdownBounds] = useState<{ x: number; y: number; width: number; height: number | string } | null>(null);
+    const [nubLeft, setNubLeft] = useState(0);
     const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+    const navRef = useRef<HTMLDivElement | null>(null);
+    const itemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+    const dropdownContentRef = useRef<HTMLDivElement | null>(null);
+    const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const handleMouseEnter = (itemKey: string, element: HTMLElement) => {
+        // Clear any pending close timeout
+        if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+        }
+        
+        setHoveredItem(itemKey);
+        setActiveDropdown(itemKey);
+        
+        if (navRef.current && element) {
+            const navRect = navRef.current.getBoundingClientRect();
+            const itemRect = element.getBoundingClientRect();
+            setHoveredItemBounds({
+                x: itemRect.left - navRect.left,
+                y: itemRect.top - navRect.top,
+                width: itemRect.width,
+                height: itemRect.height,
+            });
+            
+            // Set fixed dropdown position and size only once when first opening
+            if (!dropdownBounds) {
+                setDropdownBounds({
+                    x: 50, // Fixed left position
+                    y: itemRect.bottom - navRect.top + 8, // Position below menu items with 8px gap
+                    width: 320, // Fixed width for consistent container size
+                    height: 'auto', // Auto height
+                });
+            }
+            
+            // Calculate nub position relative to the fixed dropdown container
+            const dropdownLeft = 50; // Same as fixed dropdown x position
+            const nubPosition = (itemRect.left - navRect.left + itemRect.width / 2) - dropdownLeft;
+            setNubLeft(nubPosition);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        // Delay closing to prevent flickering
+        closeTimeoutRef.current = setTimeout(() => {
+            setHoveredItem(null);
+            setHoveredItemBounds(null);
+            setActiveDropdown(null);
+            setDropdownBounds(null);
+            setNubLeft(0);
+        }, 50);
+    };
+
+    const handleDropdownEnter = () => {
+        // Clear any pending close timeout when entering dropdown
+        if (closeTimeoutRef.current) {
+            clearTimeout(closeTimeoutRef.current);
+            closeTimeoutRef.current = null;
+        }
+    };
+
+    const handleDropdownLeave = () => {
+        // Close immediately when leaving dropdown
+        setHoveredItem(null);
+        setHoveredItemBounds(null);
+        setActiveDropdown(null);
+        setDropdownBounds(null);
+        setNubLeft(0);
+    };
 
     return (
-        <div className="flex items-center justify-center h-[64px] backdrop-blur-md border-[#333333] border-b-[0.5px]">
+        <div className="flex items-center justify-center h-[64px] backdrop-blur-md border-border-light dark:border-border-dark border-b-[0.5px]">
             <div className="flex items-center justify-between w-full max-w-[1400px] px-6">
                 <div className="flex items-center gap-8">
                 {/* Logo */}
@@ -127,23 +201,51 @@ export const MainMenu = () => {
                 </Link>
 
                 {/* Navigation Links with Dropdowns */}
-                <nav className="flex items-center gap-1">
+                <nav ref={navRef} className="relative flex items-center gap-1">
+                    {/* Animated background indicator */}
+                    {hoveredItem && hoveredItemBounds && (
+                        <motion.div
+                            layoutId="navBackground"
+                            className="absolute px-4 py-1 bg-mainBackground dark:bg-[#333333] rounded-[10px] z-0 text-sm"
+                            initial={false}
+                            animate={{
+                                x: hoveredItemBounds.x,
+                                y: hoveredItemBounds.y,
+                                width: hoveredItemBounds.width,
+                                height: hoveredItemBounds.height,
+                                opacity: 1,
+                            }}
+                            exit={{
+                                opacity: 0,
+                            }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 500,
+                                damping: 30,
+                                mass: 0.8
+                            }}
+                        />
+                    )}
+                    
                     <Link 
                         href="/about" 
-                        className="px-3 py-2 text-sm font-medium text-[#A1A1A1] hover:text-White hover:bg-mainBackground dark:hover:bg-[#333333] rounded-[3px] transition-colors duration-200"
+                        className="relative z-10 px-4 py-2 text-sm bg-transparent hover:bg-[#333333] font-medium text-[#A1A1A1] hover:text-White rounded-[10px] transition-colors duration-200"
                     >
                         About
                     </Link>
                     {dropdownMenus.map((menu) => (
                         <div 
                             key={menu.title} 
-                            className="relative" 
+                            className="relative z-10" 
                             ref={(el) => { dropdownRefs.current[menu.title] = el; }}
-                            onMouseEnter={() => setActiveDropdown(menu.title)}
-                            onMouseLeave={() => setActiveDropdown(null)}
+                            onMouseEnter={(e) => {
+                                handleMouseEnter(menu.title, e.currentTarget);
+                            }}
+                            onMouseLeave={handleMouseLeave}
                         >
+                            {/*Dropdown Button*/}
                             <button
-                                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#A1A1A1] hover:text-White hover:bg-mainBackground dark:hover:bg-[#333333] rounded-[3px] transition-colors duration-200"
+                                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#A1A1A1] hover:text-White rounded-[10px] transition-colors duration-200"
                             >
                                 {menu.title}
                                 <FontAwesomeIcon 
@@ -155,44 +257,121 @@ export const MainMenu = () => {
                                 />
                             </button>
 
-                            {/* Dropdown Menu */}
-                            {activeDropdown === menu.title && (
-                                <div className="absolute top-full left-0 mt-1 w-80 rounded-[3px] shadow-lg border-[0.25px] border-[#333333] bg-mainBackground dark:bg-foreBackground py-2 z-50 animate-in slide-in-from-top-2 duration-300">
-                                    <div className="py-2">
-                                        {menu.items.map((item, index) => (
-                                            <Link
-                                                key={index}
-                                                href={item.href}
-                                                className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-300 group"
 
-                                            >
-                                                <div className="flex-1 min-w-0">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-sm font-medium group-hover:text-gray-700 dark:group-hover:text-gray-700">
-                                                            {item.title}
-                                                        </span>
-                                                        {item.external && (
-                                                            <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-gray-400 text-sm" />
-                                                        )}
-                                                    </div>
-                                                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-                                                        {item.description}
-                                                    </p>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
                         </div>
                     ))}
+                    
+                    {/* Shared Shifting Dropdown Container */}
+                    <AnimatePresence>
+                        {activeDropdown && dropdownBounds && (
+                                                         <motion.div
+                                 className="absolute rounded-[10px] shadow-lg border-[0.25px] border-border-dark bg-mainBackground dark:bg-Night z-50"
+                                 onMouseEnter={handleDropdownEnter}
+                                 onMouseLeave={handleDropdownLeave}
+                                 style={{
+                                     left: dropdownBounds.x,
+                                     top: dropdownBounds.y,
+                                     width: dropdownBounds.width,
+                                 }}
+                                 initial={{ 
+                                     opacity: 0, 
+                                     scale: 0.96,
+                                     y: -8
+                                 }}
+                                 animate={{ 
+                                     opacity: 1, 
+                                     scale: 1,
+                                     y: 0
+                                 }}
+                                 exit={{ 
+                                     opacity: 0, 
+                                     scale: 0.96,
+                                     y: -8
+                                 }}
+                                 transition={{
+                                     type: "spring",
+                                     stiffness: 450,
+                                     damping: 28,
+                                     mass: 0.8
+                                 }}
+                             >
+                            {/* Nub - Small arrow pointing to active menu item */}
+                            <motion.span
+                                style={{
+                                    clipPath: "polygon(0 0, 100% 0, 50% 50%, 0% 100%)",
+                                }}
+                                animate={{ 
+                                    left: nubLeft,
+                                }}
+                                transition={{ 
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 30,
+                                    mass: 0.5
+                                }}
+                                className="absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-border-dark bg-mainBackground dark:bg-Night"
+                            />
+                            
+                                                         <motion.div 
+                                 key={activeDropdown} 
+                                 ref={dropdownContentRef} 
+                                 className="py-2"
+                                 initial={{ opacity: 0, y: 6 }}
+                                 animate={{ opacity: 1, y: 0 }}
+                                 transition={{ 
+                                     type: "spring",
+                                     stiffness: 500,
+                                     damping: 30,
+                                     duration: 0.2
+                                 }}
+                             >
+                                 {/* Single column layout for all menus with 320px container */}
+                                 <div className="px-2">
+                                     {dropdownMenus.find(menu => menu.title === activeDropdown)?.items.map((item, index) => (
+                                         <motion.div
+                                             key={`${activeDropdown}-${index}`}
+                                             initial={{ opacity: 0, y: 6 }}
+                                             animate={{ opacity: 1, y: 0 }}
+                                             transition={{ 
+                                                 type: "spring",
+                                                 stiffness: 500,
+                                                 damping: 30,
+                                                 delay: index * 0.03
+                                             }}
+                                         >
+                                             <Link
+                                                 href={item.href}
+                                                 className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-300 group rounded-[10px]"
+                                             >
+                                                 <div className="flex-1 min-w-0">
+                                                     <div className="flex items-center gap-2">
+                                                         <span className="text-sm font-medium group-hover:text-gray-700 dark:group-hover:text-gray-700">
+                                                             {item.title}
+                                                         </span>
+                                                         {item.external && (
+                                                             <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-gray-400 text-sm" />
+                                                         )}
+                                                     </div>
+                                                     <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                                                         {item.description}
+                                                     </p>
+                                                 </div>
+                                             </Link>
+                                         </motion.div>
+                                     ))}
+                                 </div>
+                             </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                 </nav>
             </div>
 
             {/* Search and CTA Button */}
             <div className="flex items-center gap-4">
-                <div className="hidden md:flex items-center gap-2 text-sm rounded-[2px] ring-1 ring-[#a1a1a1] px-3 py-2 hover:ring-Vermilion 
-                transition-all duration-200 focus-within:ring-2 focus-within:ring-Vermilion">
+                <div className="hidden md:flex items-center gap-2 text-sm rounded-[10px] dark:bg-Night border-[0.5px] border-border-light dark:border-border-dark px-3 py-2 hover:border-White 
+                transition-all duration-200 focus-within:border-[1.5px] focus-within:border-White">
                     <FontAwesomeIcon icon={faMagnifyingGlass} className="text-[#a1a1a1] text-sm" />
                     <input 
                         type="text" 
@@ -203,7 +382,7 @@ export const MainMenu = () => {
                 
                 <Link
                     href="/learn"
-                    className="hidden md:inline-flex items-center px-4 py-2 text-sm text-[#a1a1a1] hover:text-White bg-transparent border-[0.5px] border-[#a1a1a1] hover:bg-[#333333] rounded-[3px] transition-colors duration-200"
+                    className="hidden md:inline-flex items-center px-4 py-2 text-sm text-[#a1a1a1] hover:text-White bg-White dark:bg-Night  border-[0.5px] border-border-light dark:border-border-dark hover:bg-[#333333] rounded-[10px] transition-colors duration-200"
                 >
                     Learn
                 </Link>
@@ -212,3 +391,4 @@ export const MainMenu = () => {
     </div>
     );
 };
+
