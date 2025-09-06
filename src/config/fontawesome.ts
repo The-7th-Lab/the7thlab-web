@@ -7,7 +7,20 @@ export {
   faChevronDown, 
   faArrowUpRightFromSquare,
   faChevronRight,
-  faCookie
+  faCookie,
+  faCode,
+  faMobile,
+  faBrain,
+  faEye,
+  faNewspaper,
+  faChartLine,
+  faFileText,
+  faBookOpen,
+  faRocket,
+  faBook,
+  faCodeBranch,
+  faGraduationCap,
+  faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
 
 // Brand Icons

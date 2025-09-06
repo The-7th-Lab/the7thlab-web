@@ -13,14 +13,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
     faChevronDown, 
     faArrowUpRightFromSquare, 
-    faMagnifyingGlass 
-} from '../config/fontawesome';
+    faMagnifyingGlass,
+    faCode,
+    faMobile,
+    faBrain,
+    faEye,
+    faNewspaper,
+    faChartLine,
+    faFileText,
+    faBookOpen,
+    faRocket,
+    faBook,
+    faCodeBranch,
+    faGraduationCap,
+    faLightbulb
+} from '../../config/fontawesome';
 
 interface DropdownItem {
     title: string;
     description: string;
     href: string;
     external?: boolean;
+    icon: any; // FontAwesome icon
 }
 
 interface DropdownMenu {
@@ -35,23 +49,27 @@ const dropdownMenus: DropdownMenu[] = [
             {
                 title: "Web Development",
                 description: "Modern web applications and sites",
-                href: "/projects/web"
+                href: "/projects/web",
+                icon: faCode
             },
             {
                 title: "Mobile Apps",
                 description: "iOS and Android applications",
-                href: "/projects/mobile"
+                href: "/projects/mobile",
+                icon: faMobile
             },
             {
                 title: "AI & ML",
                 description: "Machine learning and AI solutions",
-                href: "/projects/ai"
+                href: "/projects/ai",
+                icon: faBrain
             },
             {
                 title: "View All Projects",
                 description: "See our complete portfolio",
                 href: "/projects",
-                external: true
+                external: true,
+                icon: faEye
             }
         ]
     },
@@ -61,22 +79,26 @@ const dropdownMenus: DropdownMenu[] = [
             {
                 title: "Latest Posts",
                 description: "Recent articles and insights",
-                href: "/blog"
+                href: "/blog",
+                icon: faNewspaper
             },
             {
                 title: "Tech Insights",
                 description: "Technology trends and analysis",
-                href: "/blog/tech"
+                href: "/blog/tech",
+                icon: faChartLine
             },
             {
                 title: "Case Studies",
                 description: "Real-world project stories",
-                href: "/blog/case-studies"
+                href: "/blog/case-studies",
+                icon: faFileText
             },
             {
                 title: "Newsletter",
                 description: "Stay updated with our insights",
-                href: "/newsletter"
+                href: "/newsletter",
+                icon: faBookOpen
             }
         ]
     },
@@ -86,22 +108,26 @@ const dropdownMenus: DropdownMenu[] = [
             {
                 title: "Getting Started",
                 description: "Quick start guide for developers",
-                href: "/resources/getting-started"
+                href: "/resources/getting-started",
+                icon: faRocket
             },
             {
                 title: "API Reference",
                 description: "Complete API documentation",
-                href: "/resources/api"
+                href: "/resources/api",
+                icon: faCodeBranch
             },
             {
                 title: "Tutorials",
                 description: "Step-by-step guides",
-                href: "/resources/tutorials"
+                href: "/resources/tutorials",
+                icon: faGraduationCap
             },
             {
                 title: "Examples",
                 description: "Code examples and snippets",
-                href: "/resources/examples"
+                href: "/resources/examples",
+                icon: faLightbulb
             }
         ]
     }
@@ -229,7 +255,7 @@ export const MainMenu = () => {
                     
                     <Link 
                         href="/about" 
-                        className="relative z-10 px-4 py-2 text-sm bg-transparent hover:bg-[#333333] font-medium text-[#A1A1A1] hover:text-White rounded-[10px] transition-colors duration-200"
+                        className="relative z-10 px-4 py-2 text-sm bg-transparent hover:bg-[#f2f2f2] dark:hover:bg-[#333333] font-medium text-[#A1A1A1] hover:text-Night dark:hover:text-White rounded-[10px] transition-colors duration-200"
                     >
                         About
                     </Link>
@@ -245,7 +271,7 @@ export const MainMenu = () => {
                         >
                             {/*Dropdown Button*/}
                             <button
-                                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#A1A1A1] hover:text-White rounded-[10px] transition-colors duration-200"
+                                className="flex items-center gap-1 px-3 py-2 text-sm font-regular text-[#A1A1A1] hover:text-Night dark:hover:text-White rounded-[10px] hover:bg-[#f2f2f2] dark:hover:bg-[#333333] transition-colors duration-200"
                             >
                                 {menu.title}
                                 <FontAwesomeIcon 
@@ -265,7 +291,7 @@ export const MainMenu = () => {
                     <AnimatePresence>
                         {activeDropdown && dropdownBounds && (
                                                          <motion.div
-                                 className="absolute rounded-[10px] shadow-lg border-[0.25px] border-border-dark bg-mainBackground dark:bg-Night z-50"
+                                 className="absolute rounded-[10px] shadow-lg border-[0.25px] border-border-light dark:border-border-dark bg-White dark:bg-Night z-50"
                                  onMouseEnter={handleDropdownEnter}
                                  onMouseLeave={handleDropdownLeave}
                                  style={{
@@ -309,7 +335,7 @@ export const MainMenu = () => {
                                     damping: 30,
                                     mass: 0.5
                                 }}
-                                className="absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-border-dark bg-mainBackground dark:bg-Night"
+                                className="absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border-[1px] border-border-light dark:border-border-dark bg-White dark:bg-Night"
                             />
                             
                                                          <motion.div 
@@ -341,11 +367,12 @@ export const MainMenu = () => {
                                          >
                                              <Link
                                                  href={item.href}
-                                                 className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-300 group rounded-[10px]"
+                                                 className="flex items-start gap-3 px-4 py-3 hover:bg-[#f2f2f2] dark:hover:bg-[#333333] transition-colors duration-300 group rounded-[10px]"
                                              >
+                                                 <FontAwesomeIcon icon={item.icon} className="text-sm mt-0.5 flex-shrink-0" />
                                                  <div className="flex-1 min-w-0">
                                                      <div className="flex items-center gap-2">
-                                                         <span className="text-sm font-medium group-hover:text-gray-700 dark:group-hover:text-gray-700">
+                                                         <span className="text-sm font-medium group-hover:text-gray-700 dark:group-hover:text-White">
                                                              {item.title}
                                                          </span>
                                                          {item.external && (
@@ -370,19 +397,19 @@ export const MainMenu = () => {
 
             {/* Search and CTA Button */}
             <div className="flex items-center gap-4">
-                <div className="hidden md:flex items-center gap-2 text-sm rounded-[10px] dark:bg-Night border-[0.5px] border-border-light dark:border-border-dark px-3 py-2 hover:border-White 
-                transition-all duration-200 focus-within:border-[1.5px] focus-within:border-White">
+                <div className="hidden md:flex items-center gap-2  rounded-[10px] bg-White hover:bg-[#f2f2f2] focus-within:bg-[#f2f2f2] dark:bg-Night dark:hover:bg-[#333333] dark:focus-within:bg-[#333333] text-sm border-[0.5px] border-border-light dark:border-border-dark px-3 py-2 
+                transition-all duration-200">
                     <FontAwesomeIcon icon={faMagnifyingGlass} className="text-[#a1a1a1] text-sm" />
                     <input 
                         type="text" 
                         placeholder="Search..." 
-                        className="bg-transparent outline-none text-White placeholder-[#a1a1a1] w-48"
+                        className="bg-transparent outline-none text-[Night] placeholder-[#a1a1a1] w-48"
                     />
                 </div>
                 
                 <Link
                     href="/learn"
-                    className="hidden md:inline-flex items-center px-4 py-2 text-sm text-[#a1a1a1] hover:text-White bg-White dark:bg-Night  border-[0.5px] border-border-light dark:border-border-dark hover:bg-[#333333] rounded-[10px] transition-colors duration-200"
+                    className="hidden md:inline-flex items-center px-4 py-2 text-sm text-[#a1a1a1] hover:text-Night dark:hover:text-White bg-White dark:bg-Night border-[0.5px] border-border-light dark:border-border-dark hover:bg-[#f2f2f2] dark:hover:bg-[#333333] rounded-[10px] transition-colors duration-200"
                 >
                     Learn
                 </Link>

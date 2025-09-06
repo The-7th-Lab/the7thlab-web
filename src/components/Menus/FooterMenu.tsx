@@ -11,7 +11,8 @@ import {
   faTwitter,
   faDiscord,
   faYoutube,
-  faInstagram
+  faInstagram,
+  faLinkedin
 } from '@fortawesome/free-brands-svg-icons';
 import { faCookieBite } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
@@ -69,7 +70,8 @@ const footerColumns: FooterColumn[] = [
             { title: "Twitter", href: "https://twitter.com/the7thlab", icon: faTwitter, ariaLabel: "Twitter" },
             { title: "Instagram", href: "https://instagram.com/the7thlab", icon: faInstagram, ariaLabel: "Instagram" },
             { title: "Discord", href: "https://discord.gg/the7thlab", icon: faDiscord, ariaLabel: "Discord" },
-            { title: "YouTube", href: "https://youtube.com/@the7thlab", icon: faYoutube, ariaLabel: "YouTube" }
+            { title: "YouTube", href: "https://youtube.com/@the7thlab", icon: faYoutube, ariaLabel: "YouTube" },
+            { title: "LinkedIn", href: "https://linkedin.com/company/the-7th-lab", icon: faLinkedin, ariaLabel: "LinkedIn" }
         ] as SocialLink[]
     }
 ];
