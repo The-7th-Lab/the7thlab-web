@@ -211,7 +211,7 @@ export const MainMenu = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-[64px] backdrop-blur-md border-border-light dark:border-border-dark border-b-[0.5px]">
+        <div className="relative z-[200] flex items-center justify-center h-[64px] backdrop-blur-md border-border-light dark:border-border-dark border-b-[0.5px]">
             <div className="flex items-center justify-between w-full max-w-[1400px] px-6">
                 <div className="flex items-center gap-8">
                 {/* Logo */}
@@ -291,7 +291,7 @@ export const MainMenu = () => {
                     <AnimatePresence>
                         {activeDropdown && dropdownBounds && (
                                                          <motion.div
-                                 className="absolute rounded-[10px] shadow-lg border-[0.25px] border-border-light dark:border-border-dark bg-White dark:bg-Night z-50"
+                                 className="absolute rounded-[10px] shadow-lg border-[0.25px] border-border-light dark:border-border-dark bg-White dark:bg-Night z-[100]"
                                  onMouseEnter={handleDropdownEnter}
                                  onMouseLeave={handleDropdownLeave}
                                  style={{
