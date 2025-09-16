@@ -4,12 +4,20 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-const Spline = dynamic(() => import('@splinetool/react-spline'), {
-  ssr: false,
-  loading: () => <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
-});
+const Spline = dynamic(
+  () => import('@splinetool/react-spline').then((mod) => ({ default: mod.default })),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
+  }
+);
 
 const Home = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   return (
     <div className="min-h-screen">
       {/* Attention Banner Section */}
@@ -37,10 +45,14 @@ const Home = () => {
          <div className="container flex flex-col items-center justify-center mx-auto h-full max-w-[1080px] px-[10px] relative">
            {/* Spline Background - Layer 1 (Bottom) */}
            <div className="absolute inset-0 z-0">
-             <Spline 
-               scene="https://prod.spline.design/6cP8ZMADLuZmfGON/scene.splinecode"
-               className="w-full h-full"
-             />
+             {isClient ? (
+               <Spline 
+                 scene="https://prod.spline.design/6cP8ZMADLuZmfGON/scene.splinecode"
+                 className="w-full h-full"
+               />
+             ) : (
+               <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
+             )}
            </div>
            
            {/* Grid Background - Layer 2 (Middle) */}
