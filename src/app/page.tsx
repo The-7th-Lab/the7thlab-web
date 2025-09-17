@@ -70,9 +70,9 @@ const Home = () => {
            </div>
            
            {/* Card Content - Layer 3 (Top) */}
-            <div className="flex flex-col items-center justify-center relative z-20 p-3 min-w-[901px] min-h-[360px] border-[0.5px] border-border-light dark:border-border-dark bg-Black opacity-85 backdrop-blur-lg">
-             <h1 className="text-4xl font-bold">Welcome to my website. It's cool.</h1>
-             <p className="text-lg">This is a simple website built with Next.js and Tailwind CSS.</p>
+            <div className="flex flex-col items-center justify-center relative z-20 p-3 w-[901px] h-[360px] border-[0.5px] border-border-light dark:border-border-dark bg-Black opacity-90 backdrop-blur-lg">
+             <h1 className="text-5xl font-bold py-5">Innovation that Answers to People.</h1>
+             <p className="text-xl text-[#a1a1a1] text-center w-[650px]">The 7th Lab builds open-source tools and platforms. Each project drives accountability in big tech and delivers real value to end users.</p>
            </div>
          </div>
        </section>
