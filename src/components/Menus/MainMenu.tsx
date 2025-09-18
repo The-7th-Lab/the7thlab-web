@@ -211,51 +211,27 @@ export const MainMenu = () => {
     };
 
     return (
-        <div className="relative z-[200] flex items-center justify-center h-[64px] backdrop-blur-md border-border-light dark:border-border-dark border-b-[0.5px]">
-            <div className="flex items-center justify-between w-full max-w-[1400px] px-6">
+        <div className="absolute top-0 left-0 right-0 z-[200] flex items-center justify-center h-[64px] backdrop-blur-md">
+            <div className="flex items-center justify-between w-full max-w-[1280px] px-6">
                 <div className="flex items-center gap-8">
                 {/* Logo */}
                 <Link href="/" className="flex-shrink-0">
                     <Image
-                        src="/The7thLab-Logo.png"
-                        alt="The 7th Lab Logo"
-                        width={130}
-                        height={130}
+                        src="/The7thLab-WhiteLogo.png"
+                        alt="The 7th Lab Logo in White"
+                        width={100}
+                        height={100}
                         priority
-                        className="h-8 w-auto"
+                        className="h-7 w-auto hover:opacity-70 transition-opacity duration-200"
                     />
                 </Link>
 
                 {/* Navigation Links with Dropdowns */}
                 <nav ref={navRef} className="relative flex items-center gap-1">
-                    {/* Animated background indicator */}
-                    {hoveredItem && hoveredItemBounds && (
-                        <motion.div
-                            layoutId="navBackground"
-                            className="absolute px-4 py-1 bg-mainBackground dark:bg-[#333333] rounded-[10px] z-0 text-sm"
-                            initial={false}
-                            animate={{
-                                x: hoveredItemBounds.x,
-                                y: hoveredItemBounds.y,
-                                width: hoveredItemBounds.width,
-                                height: hoveredItemBounds.height,
-                                opacity: 1,
-                            }}
-                            exit={{
-                                opacity: 0,
-                            }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 500,
-                                damping: 30,
-                                mass: 0.8
-                            }}
-                        />
-                    )}
                     
                     <Link 
                         href="/about" 
-                        className="relative z-10 px-4 py-2 text-sm bg-transparent hover:bg-[#f2f2f2] dark:hover:bg-[#333333] font-medium text-[#A1A1A1] hover:text-Night dark:hover:text-White rounded-[10px] transition-colors duration-200"
+                        className="relative z-10 px-4 py-2 text-sm bg-transparent font-regular text-White hover:text-White/50 transition-colors duration-200"
                     >
                         About
                     </Link>
@@ -271,7 +247,7 @@ export const MainMenu = () => {
                         >
                             {/*Dropdown Button*/}
                             <button
-                                className="flex items-center gap-1 px-3 py-2 text-sm font-regular text-[#A1A1A1] hover:text-Night dark:hover:text-White rounded-[10px] hover:bg-[#f2f2f2] dark:hover:bg-[#333333] transition-colors duration-200"
+                                className="flex items-center gap-1 px-3 py-2 text-sm font-regular text-White hover:text-White/50 transition-colors duration-200"
                             >
                                 {menu.title}
                                 <FontAwesomeIcon 
@@ -395,21 +371,12 @@ export const MainMenu = () => {
                 </nav>
             </div>
 
-            {/* Search and CTA Button */}
+            {/* CTA Button */}
             <div className="flex items-center gap-4">
-                <div className="hidden md:flex items-center gap-2  rounded-[10px] bg-White hover:bg-[#f2f2f2] focus-within:bg-[#f2f2f2] dark:bg-Night dark:hover:bg-[#333333] dark:focus-within:bg-[#333333] text-sm border-[0.5px] border-border-light dark:border-border-dark px-3 py-2 
-                transition-all duration-200">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} className="text-[#a1a1a1] text-sm" />
-                    <input 
-                        type="text" 
-                        placeholder="Search..." 
-                        className="bg-transparent outline-none text-[Night] placeholder-[#a1a1a1] w-48"
-                    />
-                </div>
                 
                 <Link
                     href="/learn"
-                    className="hidden md:inline-flex items-center px-4 py-2 text-sm text-[#a1a1a1] hover:text-Night dark:hover:text-White bg-White dark:bg-Night border-[0.5px] border-border-light dark:border-border-dark hover:bg-[#f2f2f2] dark:hover:bg-[#333333] rounded-[10px] transition-colors duration-200"
+                    className="hidden md:inline-flex items-center px-4 py-2 text-sm text-Whit bg-blue-500/10 hover:bg-blue-500/20 border-White border-[2px] rounded-[10px] transition-colors duration-200"
                 >
                     Learn
                 </Link>
