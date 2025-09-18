@@ -1,38 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import React from 'react';
 import Link from 'next/link';
 import QuickEmailForm from "../components/Forms/QuickEmailForm";
 
-const Spline = dynamic(
-  () => import('@splinetool/react-spline'),
-  {
-    ssr: false,
-    loading: () => <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
-  }
-);
+// Using iframe embed instead of Spline component
 
 const Home = () => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
   return (
     <div className="min-h-screen">
        {/* Hero Section */}
        <section className="relative h-[80vh] w-full overflow-hidden">
          {/* Spline Background - Layer 1 (Deepest) */}
          <div className="absolute inset-0 z-0">
-           {isClient ? (
-             <Spline 
-               scene="https://prod.spline.design/aHEmMz600PDWWhOc/scene.splinecode"
-               className="w-full h-full"
-             />
-           ) : (
-             <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
-           )}
+           <iframe 
+             src='https://my.spline.design/cubes-KCr5MGsMjrvn3DK8gFXLBl3O/' 
+             frameBorder='0' 
+             width='100%' 
+             height='100%'
+             className="w-full h-full"
+           />
          </div>
          
          {/* Slanted Black Background - Layer 2 (Middle) */}
