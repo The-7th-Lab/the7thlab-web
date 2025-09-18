@@ -6,7 +6,7 @@ import Link from 'next/link';
 import QuickEmailForm from "../components/Forms/QuickEmailForm";
 
 const Spline = dynamic(
-  () => import('@splinetool/react-spline/next'),
+  () => import('@splinetool/react-spline/dist/react-spline-next'),
   {
     ssr: false,
     loading: () => <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
