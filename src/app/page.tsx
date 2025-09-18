@@ -5,13 +5,14 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import QuickEmailForm from "../components/Forms/QuickEmailForm";
 
-const Spline = dynamic(
-  () => import('@splinetool/react-spline/dist/react-spline-next'),
-  {
-    ssr: false,
-    loading: () => <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
-  }
-);
+// Temporarily disabled due to import issues
+// const Spline = dynamic(
+//   () => import('@splinetool/react-spline/dist/react-spline-next'),
+//   {
+//     ssr: false,
+//     loading: () => <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
+//   }
+// );
 
 const Home = () => {
   const [isClient, setIsClient] = useState(false);
@@ -25,14 +26,7 @@ const Home = () => {
        <section className="relative h-[80vh] w-full overflow-hidden">
          {/* Spline Background - Layer 1 (Deepest) */}
          <div className="absolute inset-0 z-0">
-           {isClient ? (
-             <Spline 
-               scene="https://prod.spline.design/aHEmMz600PDWWhOc/scene.splinecode"
-               className="w-full h-full"
-             />
-           ) : (
-             <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
-           )}
+           <div className="w-full h-full bg-gray-100 dark:bg-gray-800 animate-pulse" />
          </div>
          
          {/* Slanted Black Background - Layer 2 (Middle) */}
