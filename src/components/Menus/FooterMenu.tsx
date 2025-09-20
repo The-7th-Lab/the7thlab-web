@@ -123,7 +123,7 @@ export function FooterMenu() {
           <div className="md:col-span-1">
             <div className="flex items-center">
               <Image
-                src="/The7thLab-IconLogo.png"
+                src="/Logos/The7thLab-IconLogo.png"
                 alt="The 7th Lab"
                 width={32}
                 height={32}
