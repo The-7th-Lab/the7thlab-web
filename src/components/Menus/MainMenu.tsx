@@ -217,7 +217,7 @@ export const MainMenu = () => {
                 {/* Logo */}
                 <Link href="/" className="flex-shrink-0">
                     <Image
-                        src="/The7thLab-WhiteLogo.png"
+                        src="/Logos/The7thLab-WhiteLogo.png"
                         alt="The 7th Lab Logo in White"
                         width={100}
                         height={100}

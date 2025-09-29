@@ -17,7 +17,7 @@ const QuickEmailForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex items-center bg-White/20 rounded-[10px] p-1 w-8/10">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex items-center bg-gradient-to-br from-blue-500/20 to-purple-500/10 backdrop-blur-sm border border-white/10 rounded-[10px] p-1 w-8/10">
             <input
                 {...register("email", { 
                     required: "Email is required",
