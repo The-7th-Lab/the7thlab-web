@@ -23,9 +23,11 @@ const Home = () => {
          </div>
          
          {/* Slanted Black Background - Layer 2 (Middle) */}
-         <div className="absolute bottom-0 left-0 w-full h-3/4 z-10 bg-black" style={{
+         <div className="absolute bottom-0 left-0 w-full h-3/4 z-10 bg-Black" style={{
            clipPath: 'polygon(0 100%, 100% 0%, 100% 100%)'
          }}>
+          <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-dark px-[10px]">
+          </div>
          </div>
          
          {/* Content Layer - Layer 3 (Top) */}
@@ -73,7 +75,7 @@ const Home = () => {
 
       {/* About Section */}
       <section className="flex items-center justify-center h-[80vh] w-full px-5">
-        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-light dark:border-border-dark px-[10px]">
+        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-dark px-[10px]">
         </div>
       </section>
 
