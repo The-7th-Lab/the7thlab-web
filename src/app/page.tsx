@@ -26,13 +26,8 @@ const Home = () => {
          <div className="absolute bottom-0 left-0 w-full h-3/4 z-10 bg-Black" style={{
            clipPath: 'polygon(0 100%, 100% 0%, 100% 100%)'
          }}>
-<<<<<<< HEAD
           <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-dark px-[10px]">
           </div>
-=======
-                  <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-light dark:border-border-dark px-[10px]">
-                  </div>
->>>>>>> 52b13e58c2393a7bef02be47f247a739b7d27d0d
          </div>
          
          {/* Content Layer - Layer 3 (Top) */}
