@@ -40,7 +40,7 @@ const Home = () => {
                 <Link href="/projects" className="inline-block">
                   <div className="px-3 py-3 bg-blueLagoon/20 rounded-[10px] hover:bg-blueLagoon/40 transition-colors duration-200 cursor-pointer">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-White/80">
+                      <span className="text-White">
                         <span className="font-medium text-blueLagoon px-2 py-1 bg-blueLagoon/20 rounded-[7px] mr-2">Latest</span>Project List PL_001 is now in active development
                       </span>
                     </div>

@@ -168,7 +168,7 @@ export const MainMenu = () => {
             // Set fixed dropdown position and size only once when first opening
             if (!dropdownBounds) {
                 setDropdownBounds({
-                    x: 50, // Fixed left position
+                    x: -50, // Fixed left position
                     y: itemRect.bottom - navRect.top + 8, // Position below menu items with 8px gap
                     width: 640, // Fixed width for consistent container size
                     height: 'auto', // Auto height
@@ -176,7 +176,7 @@ export const MainMenu = () => {
             }
             
             // Calculate nub position relative to the fixed dropdown container
-            const dropdownLeft = 50; // Same as fixed dropdown x position
+            const dropdownLeft = -50; // Same as fixed dropdown x position
             const nubPosition = (itemRect.left - navRect.left + itemRect.width / 2) - dropdownLeft;
             setNubLeft(nubPosition);
         }
@@ -371,11 +371,11 @@ export const MainMenu = () => {
                                          <div className="px-4 py-3">
                                              {activeDropdown === 'Projects' && (
                                                  <>
-                                                     <h3 className="text-sm font-semibold text-White mb-4">Featured Project</h3>
+                                                     <h3 className="text-sm font-semibold text-White mb-4">Project List</h3>
                                                      <div className="bg-gray-800/50 rounded-lg p-3 hover:bg-gray-800/70 transition-colors duration-200 cursor-pointer">
                                                          <div className="flex items-center gap-2 mb-2">
                                                              <FontAwesomeIcon icon={faCode} className="text-blue-400 text-xs" />
-                                                             <span className="text-sm font-medium text-White">Project Alpha</span>
+                                                             <span className="text-sm font-medium text-White">PL_001</span>
                                                          </div>
                                                          <div className="w-full h-[100px] bg-gray-700/50 rounded-md mb-2 flex items-center justify-center">
                                                              <span className="text-xs text-gray-500">Project Image</span>
