@@ -48,7 +48,7 @@ const dropdownMenus: DropdownMenu[] = [
         items: [
             {
                 title: "Web Development",
-                description: "Modern web applications and sites",
+                description: "Modern web applications",
                 href: "/projects/web",
                 icon: faCode
             },
