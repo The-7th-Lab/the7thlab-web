@@ -170,7 +170,7 @@ export const MainMenu = () => {
                 setDropdownBounds({
                     x: 50, // Fixed left position
                     y: itemRect.bottom - navRect.top + 8, // Position below menu items with 8px gap
-                    width: 320, // Fixed width for consistent container size
+                    width: 640, // Fixed width for consistent container size
                     height: 'auto', // Auto height
                 });
             }
@@ -267,7 +267,7 @@ export const MainMenu = () => {
                     <AnimatePresence>
                         {activeDropdown && dropdownBounds && (
                                                          <motion.div
-                                 className="absolute rounded-[10px] shadow-lg border-[0.25px] border-border-light dark:border-border-dark bg-White dark:bg-Night z-[100]"
+                                 className="absolute rounded-[10px] shadow-lg border-[0.25px] border-border-dark bg-Night z-[100]"
                                  onMouseEnter={handleDropdownEnter}
                                  onMouseLeave={handleDropdownLeave}
                                  style={{
@@ -311,7 +311,7 @@ export const MainMenu = () => {
                                     damping: 30,
                                     mass: 0.5
                                 }}
-                                className="absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border-[1px] border-border-light dark:border-border-dark bg-White dark:bg-Night"
+                                className="absolute left-0 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border-[1px] border-border-dark bg-Night"
                             />
                             
                                                          <motion.div 
@@ -327,41 +327,100 @@ export const MainMenu = () => {
                                      duration: 0.2
                                  }}
                              >
-                                 {/* Single column layout for all menus with 320px container */}
-                                 <div className="px-2">
-                                     {dropdownMenus.find(menu => menu.title === activeDropdown)?.items.map((item, index) => (
-                                         <motion.div
-                                             key={`${activeDropdown}-${index}`}
-                                             initial={{ opacity: 0, y: 6 }}
-                                             animate={{ opacity: 1, y: 0 }}
-                                             transition={{ 
-                                                 type: "spring",
-                                                 stiffness: 500,
-                                                 damping: 30,
-                                                 delay: index * 0.03
-                                             }}
-                                         >
-                                             <Link
-                                                 href={item.href}
-                                                 className="flex items-start gap-3 px-4 py-3 hover:bg-[#f2f2f2] dark:hover:bg-[#333333] transition-colors duration-300 group rounded-[10px]"
+                                 {/* Two-column layout */}
+                                 <div className="flex px-2">
+                                     {/* Left column - Menu items */}
+                                     <div className="w-1/2 pr-2">
+                                         {dropdownMenus.find(menu => menu.title === activeDropdown)?.items.map((item, index) => (
+                                             <motion.div
+                                                 key={`${activeDropdown}-${index}`}
+                                                 initial={{ opacity: 0, y: 6 }}
+                                                 animate={{ opacity: 1, y: 0 }}
+                                                 transition={{ 
+                                                     type: "spring",
+                                                     stiffness: 500,
+                                                     damping: 30,
+                                                     delay: index * 0.03
+                                                 }}
                                              >
-                                                 <FontAwesomeIcon icon={item.icon} className="text-sm mt-0.5 flex-shrink-0" />
-                                                 <div className="flex-1 min-w-0">
-                                                     <div className="flex items-center gap-2">
-                                                         <span className="text-sm font-medium group-hover:text-gray-700 dark:group-hover:text-White">
-                                                             {item.title}
-                                                         </span>
-                                                         {item.external && (
-                                                             <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-gray-400 text-sm" />
-                                                         )}
+                                                 <Link
+                                                     href={item.href}
+                                                     className="flex items-start gap-3 px-4 py-3 hover:bg-[#333333] transition-colors duration-300 group rounded-[10px]"
+                                                 >
+                                                     <FontAwesomeIcon icon={item.icon} className="text-sm mt-0.5 flex-shrink-0" />
+                                                     <div className="flex-1 min-w-0">
+                                                         <div className="flex items-center gap-2">
+                                                             <span className="text-sm font-medium group-hover:text-White">
+                                                                 {item.title}
+                                                             </span>
+                                                             {item.external && (
+                                                                 <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-gray-400 text-sm" />
+                                                             )}
+                                                         </div>
+                                                         <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                                                             {item.description}
+                                                         </p>
                                                      </div>
-                                                     <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-                                                         {item.description}
-                                                     </p>
-                                                 </div>
-                                             </Link>
-                                         </motion.div>
-                                     ))}
+                                                 </Link>
+                                             </motion.div>
+                                         ))}
+                                     </div>
+                                     
+                                     {/* Right column - Contextual featured content */}
+                                     <div className="w-1/2 pl-2 border-l border-gray-700">
+                                         <div className="px-4 py-3">
+                                             {activeDropdown === 'Projects' && (
+                                                 <>
+                                                     <h3 className="text-sm font-semibold text-White mb-4">Featured Project</h3>
+                                                     <div className="bg-gray-800/50 rounded-lg p-3 hover:bg-gray-800/70 transition-colors duration-200 cursor-pointer">
+                                                         <div className="flex items-center gap-2 mb-2">
+                                                             <FontAwesomeIcon icon={faCode} className="text-blue-400 text-xs" />
+                                                             <span className="text-sm font-medium text-White">Project Alpha</span>
+                                                         </div>
+                                                         <div className="w-full h-[100px] bg-gray-700/50 rounded-md mb-2 flex items-center justify-center">
+                                                             <span className="text-xs text-gray-500">Project Image</span>
+                                                         </div>
+                                                         <p className="text-xs text-gray-400 line-clamp-2">Modern web application with AI integration</p>
+                                                     </div>
+                                                 </>
+                                             )}
+                                             
+                                             {activeDropdown === 'Blog' && (
+                                                 <>
+                                                     <h3 className="text-sm font-semibold text-White mb-4">Latest Post</h3>
+                                                     <div className="bg-gray-800/50 rounded-lg p-3 hover:bg-gray-800/70 transition-colors duration-200 cursor-pointer">
+                                                         <div className="flex items-center gap-2 mb-2">
+                                                             <FontAwesomeIcon icon={faNewspaper} className="text-purple-400 text-xs" />
+                                                             <span className="text-sm font-medium text-White">Tech Trends 2024</span>
+                                                         </div>
+                                                         <div className="w-full h-[100px] bg-gray-700/50 rounded-md mb-2 flex items-center justify-center">
+                                                             <span className="text-xs text-gray-500">Blog Image</span>
+                                                         </div>
+                                                         <p className="text-xs text-gray-400 line-clamp-2">Exploring the latest developments in web technology</p>
+                                                         <span className="text-xs text-gray-500 mt-1 block">2 days ago</span>
+                                                     </div>
+                                                 </>
+                                             )}
+                                             
+                                             {activeDropdown === 'Resources' && (
+                                                 <>
+                                                     <h3 className="text-sm font-semibold text-White mb-4">Latest Release</h3>
+                                                     <div className="bg-gray-800/50 rounded-lg p-3 hover:bg-gray-800/70 transition-colors duration-200 cursor-pointer">
+                                                         <div className="flex items-center gap-2 mb-2">
+                                                             <FontAwesomeIcon icon={faRocket} className="text-orange-400 text-xs" />
+                                                             <span className="text-sm font-medium text-White">v2.1.0</span>
+                                                             <span className="text-xs bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">New</span>
+                                                         </div>
+                                                         <div className="w-full h-[100px] bg-gray-700/50 rounded-md mb-2 flex items-center justify-center">
+                                                             <span className="text-xs text-gray-500">Release Image</span>
+                                                         </div>
+                                                         <p className="text-xs text-gray-400 line-clamp-2">Enhanced performance and new API endpoints</p>
+                                                         <span className="text-xs text-gray-500 mt-1 block">1 week ago</span>
+                                                     </div>
+                                                 </>
+                                             )}
+                                         </div>
+                                     </div>
                                  </div>
                              </motion.div>
                             </motion.div>

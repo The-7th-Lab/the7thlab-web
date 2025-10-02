@@ -85,7 +85,7 @@ export function FooterMenu() {
             <Link 
               key={index}
               href={item.href}
-              className="text-[#a1a1a1] hover:text-gray-900 dark:hover:text-White transition-colors flex items-center space-x-3"
+              className="text-[#a1a1a1] hover:text-White transition-colors flex items-center space-x-3"
               aria-label={item.ariaLabel}
             >
               <FontAwesomeIcon icon={item.icon} className="h-5 w-5" />
@@ -102,7 +102,7 @@ export function FooterMenu() {
           <li key={index}>
             <Link 
               href={item.href} 
-              className="text-sm text-[#a1a1a1] hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="text-sm text-[#a1a1a1] hover:text-white transition-colors"
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noopener noreferrer" : undefined}
             >
@@ -115,7 +115,7 @@ export function FooterMenu() {
   };
 
   return (
-    <footer className="w-full border-t-[0.5px] border-border-light dark:border-border-dark">
+    <footer className="w-full border-t-[0.5px] border-border-dark">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           
@@ -135,7 +135,7 @@ export function FooterMenu() {
           {/* Dynamic Columns */}
           {footerColumns.map((column, index) => (
             <div key={index} className="md:col-span-1">
-              <h3 className="text-sm text-Night dark:text-White mb-4">
+              <h3 className="text-sm text-White mb-4">
                 {column.title}
               </h3>
               {renderColumnItems(column)}
@@ -144,20 +144,20 @@ export function FooterMenu() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t-[0.5px] border-border-light dark:border-border-dark">
+        <div className="mt-12 pt-8 border-t-[0.5px] border-border-dark">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-[#a1a1a1]">
               © 2024 The 7th Lab. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm text-[#a1a1a1]">
-              <Link href="/cookies" className="hover:text-gray-900 dark:hover:text-White transition-colors">
+              <Link href="/cookies" className="hover:text-White transition-colors">
                 <FontAwesomeIcon icon={faCookieBite} className="mr-2 h-4 w-4" />
                 Cookies Policy
               </Link>
-              <Link href="/terms" className="hover:text-gray-900 dark:hover:text-White transition-colors">
+              <Link href="/terms" className="hover:text-White transition-colors">
                 Terms of Service
               </Link>
-              <Link href="/privacy" className="hover:text-gray-900 dark:hover:text-White transition-colors">
+              <Link href="/privacy" className="hover:text-White transition-colors">
                 Privacy Policy
               </Link>
             </div>

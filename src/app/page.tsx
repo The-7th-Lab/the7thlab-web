@@ -26,13 +26,8 @@ const Home = () => {
          <div className="absolute bottom-0 left-0 w-full h-3/4 z-10 bg-Black" style={{
            clipPath: 'polygon(0 100%, 100% 0%, 100% 100%)'
          }}>
-<<<<<<< HEAD
           <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-dark px-[10px]">
           </div>
-=======
-                  <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-light dark:border-border-dark px-[10px]">
-                  </div>
->>>>>>> 52b13e58c2393a7bef02be47f247a739b7d27d0d
          </div>
          
          {/* Content Layer - Layer 3 (Top) */}
@@ -66,7 +61,7 @@ const Home = () => {
                <div className="flex justify-center lg:justify-end">
                  <div className="w-full max-w-md h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center">
                    <div className="text-center text-gray-400">
-                     <div className="w-24 h-24 mx-auto mb-4 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                     <div className="w-24 h-24 mx-auto mb-4 bg-gray-600 rounded-full flex items-center justify-center">
                        <span className="text-2xl">🚀</span>
                      </div>
                      <p className="text-sm">Visual Content Placeholder</p>
@@ -86,19 +81,19 @@ const Home = () => {
 
       {/* Services Section */}
       <section className="flex items-center justify-center h-[80vh] w-full px-5">
-        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-light dark:border-border-dark px-[10px]">
+        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-dark px-[10px]">
         </div>
       </section>
 
       {/* Projects Section */}
       <section className="flex items-center justify-center h-[80vh] w-full px-5">
-        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-light dark:border-border-dark px-[10px]">
+        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-dark px-[10px]">
         </div>
       </section>
 
       {/* Contact Section */}
       <section className="flex items-center justify-center h-[80vh] w-full px-5">
-        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-light dark:border-border-dark px-[10px]">
+        <div className="container mx-auto h-full max-w-[1080px] border-x-[0.5px] border-border-dark px-[10px]">
         </div>
       </section>
     </div>

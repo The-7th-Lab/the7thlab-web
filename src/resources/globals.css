@@ -3,8 +3,8 @@
 
 /* Define base CSS variables for light mode (default) */
 :root {
-  --background: #FAFAFA;    /* Background color */
-  --foreground: [Night];    /* Text color */
+  --background: [Black];    /* Background color */
+  --foreground: [White];    /* Text color */
 }
 
 /* Tailwind v4 theme configuration - maps CSS variables to Tailwind design tokens */
